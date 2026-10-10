@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const PROXIMOS = ["Sopa temática", "Crucigrama chico", "Crucigrama mediano", "Crucigrama grande"];
+const PROXIMOS = ["Sopa temática"];
 
 export default function Inicio() {
   return (
@@ -10,6 +10,10 @@ export default function Inicio() {
       <Link href="/palabra" className="tarjeta">
         <span className="tarjeta-titulo">La Palabra del Día</span>
         <span className="tarjeta-texto">Adivina la palabra de 5 letras en 6 intentos.</span>
+      </Link>
+      <Link href="/crucigrama" className="tarjeta">
+        <span className="tarjeta-titulo">Crucigrama</span>
+        <span className="tarjeta-texto">El crucigrama grande de 15×15, uno nuevo cada día.</span>
       </Link>
       {PROXIMOS.map((nombre) => (
         <div key={nombre} className="tarjeta deshabilitada">
