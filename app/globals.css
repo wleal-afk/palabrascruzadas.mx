@@ -1,0 +1,157 @@
+:root {
+  --fondo: #ffffff;
+  --texto: #1a1a1b;
+  --suave: #6b6b6f;
+  --borde: #d3d6da;
+  --tecla: #d3d6da;
+  --correcta: #4a9b5e;
+  --presente: #c9a83a;
+  --ausente: #787c7e;
+  --tarjeta: #f4f4f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #121213;
+    --texto: #f2f2f2;
+    --suave: #a1a1a6;
+    --borde: #3a3a3c;
+    --tecla: #818384;
+    --ausente: #3a3a3c;
+    --tarjeta: #1f1f21;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+/* Inicio */
+.inicio { max-width: 480px; margin: 0 auto; padding: 40px 16px; }
+.inicio h1 { margin: 0; font-size: 28px; }
+.subtitulo { color: var(--suave); margin: 4px 0 24px; }
+.tarjeta {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px; margin-bottom: 12px; border-radius: 12px;
+  background: var(--tarjeta); border: 1px solid var(--borde);
+}
+.tarjeta-titulo { font-weight: 700; font-size: 18px; }
+.tarjeta-texto { color: var(--suave); font-size: 14px; }
+.deshabilitada { opacity: 0.5; }
+
+/* Juego */
+.juego {
+  max-width: 500px; margin: 0 auto; height: 100dvh;
+  display: flex; flex-direction: column;
+  padding: 0 8px env(safe-area-inset-bottom);
+}
+.barra {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--borde); padding: 10px 8px;
+}
+.barra h1 { font-size: 20px; margin: 0; }
+.barra a, .barra button { background: none; border: 0; font-size: 22px; width: 36px; }
+
+.aviso {
+  position: fixed; top: 64px; left: 50%; transform: translateX(-50%);
+  background: var(--texto); color: var(--fondo);
+  padding: 10px 14px; border-radius: 6px; font-weight: 600; z-index: 10;
+}
+
+.tablero {
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  gap: 5px; align-items: center; padding: 10px 0;
+}
+.fila { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: min(330px, 100%); }
+.casilla {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--borde); font-size: 30px; font-weight: 700;
+}
+.casilla.escrita { border-color: var(--suave); }
+.casilla.correcta, .casilla.presente, .casilla.ausente { color: #fff; border-color: transparent; }
+.casilla.correcta { background: var(--correcta); }
+.casilla.presente { background: var(--presente); }
+.casilla.ausente { background: var(--ausente); }
+
+.teclado { padding-bottom: 8px; }
+.renglon { display: flex; gap: 5px; margin-bottom: 7px; }
+.tecla {
+  flex: 1; height: 56px; border: 0; border-radius: 4px; padding: 0;
+  background: var(--tecla); font-weight: 700; font-size: 15px;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.tecla.ancha { flex: 1.5; font-size: 12px; }
+.tecla.correcta { background: var(--correcta); color: #fff; }
+.tecla.presente { background: var(--presente); color: #fff; }
+.tecla.ausente { background: var(--ausente); color: #fff; }
+
+/* Resultado */
+.fondo {
+  position: fixed; inset: 0; background: rgb(0 0 0 / 0.5);
+  display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 20;
+}
+.modal {
+  background: var(--fondo); border-radius: 12px; padding: 20px;
+  width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 16px;
+}
+.veredicto { margin: 0; text-align: center; font-size: 18px; }
+.numeros { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; font-size: 12px; }
+.numeros b { display: block; font-size: 26px; }
+.barra-dist { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 13px; }
+.barra-dist div { background: var(--ausente); color: #fff; text-align: right; padding: 2px 6px; font-weight: 700; }
+.boton { background: var(--correcta); color: #fff; border: 0; border-radius: 24px; padding: 14px; font-weight: 700; }
+.cerrar { background: none; border: 0; color: var(--suave); }
+.barra-dist.hoy div { background: var(--correcta); }
+
+/* Crucigrama */
+.crucigrama { max-width: 760px; margin: 0 auto; padding: 0 8px 24px; }
+.progreso-mini { font-weight: 700; font-variant-numeric: tabular-nums; }
+.pista-activa {
+  background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 8px;
+  padding: 10px 12px; margin: 8px 0; font-size: 14px; min-height: 20px;
+}
+.tablero-cru {
+  display: grid; gap: 1px; background: var(--borde); border: 1px solid var(--borde);
+  width: 100%; aspect-ratio: 1; margin: 0 auto; max-width: 560px;
+}
+.celda-cru { position: relative; background: var(--fondo); aspect-ratio: 1; }
+.celda-cru.negra { background: var(--texto); }
+.celda-cru.en-palabra { background: #dde8ff; }
+.celda-cru.activa { background: #a8c8ff; }
+.celda-cru.ok input { color: var(--correcta); }
+.celda-cru.mal input { color: #d33; }
+@media (prefers-color-scheme: dark) {
+  .celda-cru.en-palabra { background: #2a3a5c; }
+  .celda-cru.activa { background: #3b5490; }
+}
+.num-cru {
+  position: absolute; top: 1px; left: 2px; font-size: 8px; line-height: 1;
+  color: var(--suave); pointer-events: none; z-index: 1;
+}
+.celda-cru input {
+  width: 100%; height: 100%; border: 0; background: none; text-align: center;
+  font-size: 15px; font-weight: 700; text-transform: uppercase; color: var(--texto);
+  padding: 0; -webkit-tap-highlight-color: transparent;
+}
+.celda-cru input:focus { outline: 2px solid #3b5490; outline-offset: -2px; }
+.acciones-cru { display: flex; gap: 8px; margin: 10px 0; }
+.acciones-cru button {
+  flex: 1; background: var(--tarjeta); border: 1px solid var(--borde);
+  border-radius: 8px; padding: 10px; font-weight: 600;
+}
+.listas-pistas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+.listas-pistas h2 { font-size: 14px; margin: 0 0 6px; }
+.listas-pistas ul { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+.listas-pistas li { margin-bottom: 6px; cursor: pointer; }
+.listas-pistas li.activa { color: var(--correcta); font-weight: 700; }
+@media (max-width: 420px) {
+  .listas-pistas { grid-template-columns: 1fr; }
+}
